@@ -16,15 +16,16 @@ $db = new SQLite3('sites.db');
 // echo $teste;
     
 function upload_file($file, $title, $category) {
-    $imagem_name = str_replace(" ", "_", strtolower($title));
-    $target_path = $imagem_name. '.'. basename($file["type"]);
-    $base_dir = realpath(dirname(__FILE__));
+    $imagem_name = strtolower(strtr(utf8_decode($title), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ '), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY-'));
     $category = str_replace(['ã','ç'], ['a','c'], strtolower($_POST['category']));
-    $image_dir = substr($base_dir, 0, -9) . "\_resources\images\cursos\\" . $category . "\\";
-    $image_curso = $image_dir . $target_path;
+    $target_path = $category . '_' . $imagem_name. '.'. basename($file["type"]);
+    $base_dir = realpath(dirname(__FILE__));
+    $image_dir = substr($base_dir, 0, -9) . "\_resources\images\cursos\\";
+    $image_curso = $image_dir .  $target_path;
     @move_uploaded_file($file['tmp_name'], $image_curso);
     return $target_path;
 }
+
 
 // echo upload_file($_FILES['photo'], $_POST['title'], $_POST['category']);
 if($type=='new'){

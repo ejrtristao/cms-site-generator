@@ -43,12 +43,24 @@ if (isset($_GET['id'])) {
         </div>
         <div class="mb-3">
             <label for="photo" class="form-label">Foto</label>
+            <img id="image_preview" src="#" class="img-responsive"  style="display: none; width: 200px;" />
+            <?php 
+                if($photo){
+                    echo '<img src="../_resources/images/cursos/' . $photo . '" class="img-responsive"  style="width: 200px;" id="image" />';
+                }
+            ?>
             <input accept="image/*" type="file" class="form-control" value="<?= $photo ?>" name="photo" id="photo">
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Categoria</label>
             <select name="category" class="form-control">
-                <option value="">Selecione</option>
+                <?php
+                if($category){
+                    echo '<option value="'.$category.'" selected>'.$category.'</option>';
+                }else{
+                    echo '<option selected></option>';
+                }
+                ?>
                 <option value="Capacitação">Capacitação</option>
                 <option value="Atualização">Atualização</option>
                 <option value="Reciclagem">Reciclagem</option>
@@ -73,7 +85,7 @@ if (isset($_GET['id'])) {
                 <tr>
                     <td><?php echo $row['title']; ?></td>
                     <td><?php echo $row['category']; ?></td>
-                    <td><img src="./../_resources/images/cursos/<?php echo str_replace(['ã', 'ç'], ['a', 'c'], strtolower($row['category'])); ?>/<?php echo $row['photo']; ?>" height="50" /></td>
+                    <td><img src="./../_resources/images/cursos/<?php echo $row['photo']; ?>" height="50" /></td>
                     <td><a href="./cursos.php?type=edit&id=<?php echo $row['id']; ?>">Editar</a></td>
                     <td><a href="./db/db_curso.php?type=delete&id=<?php echo $row['id']; ?>">Excluir</a></td>
                 </tr>
@@ -81,4 +93,16 @@ if (isset($_GET['id'])) {
         </tbody>
     </table>
 </div>
+
+<script>
+    photo.onchange = evt => {
+  const [file] = photo.files
+  if (file) {
+    image_preview.src = URL.createObjectURL(file)
+    image_preview.style.display = 'block'
+    image.style.display = 'none'
+
+  }
+}
+</script>
 <?php include './layouts/footer.php'; ?>
