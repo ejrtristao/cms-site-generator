@@ -10,7 +10,7 @@ while($value = $list->fetchArray()) {
     <article class="col-xl-4 col-lg-6 col-sm-12 filter-item '.str_replace(['ç', 'ã'], ['C', 'A'], strtoupper($value['category'])).' Growth">
     <div class="gallery-item">
         <div class="image-box">
-            <img src="./_resources/images/cursos/' .str_replace(['ã','ç'], ['a','c'], strtolower($value['category'])) .'/'. $value['photo']  .'" />
+            <img src="./_resources/images/cursos/'. $value['photo']  .'" />
             <div class="overlay">
                 <a class="link-btn" href="curso.php?id='.$value['id'].'">
                     <i class="fa fa-link"></i>

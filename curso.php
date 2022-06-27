@@ -114,7 +114,7 @@ $row = $list->fetchArray();
                     </div>
                     <div class="image-box">
                         <figure>
-                            <img src="./_resources/images/cursos/<?= str_replace(['ã','ç'], ['a','c'], strtolower($row['category'])); ?>/<?= $row['photo']  ?> " />
+                            <img src="./_resources/images/cursos/<?= $row['photo']  ?> " />
                         </figure>
                     </div>
                 </div>
