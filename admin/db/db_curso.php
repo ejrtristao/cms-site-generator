@@ -1,19 +1,6 @@
 <?php
 $type = $_GET['type'];
 $db = new SQLite3('sites.db');
-
-
-// $imagem_name = str_replace(" ", "_", strtolower($_POST['title']));
-// $target_path = $imagem_name. '.'. basename($_FILES['photo']["type"]);
-// $base_dir = realpath(dirname(__FILE__));
-// $category = str_replace(['ã','ç'], ['a','c'], strtolower($_POST['category']));
-// $image_dir = substr($base_dir, 0, -9) . "\_resources\images\cursos\\" . $category . "\\";
-// $image_curso = $image_dir . $target_path;
-// $img = @move_uploaded_file($_FILES["photo"]['tmp_name'], $image_curso);
-// // return $target_path;
-// echo $img;
-
-// echo $teste;
     
 function upload_file($file, $title, $category) {
     $imagem_name = strtolower(strtr(utf8_decode($title), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ '), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY-'));
@@ -27,7 +14,6 @@ function upload_file($file, $title, $category) {
 }
 
 
-// echo upload_file($_FILES['photo'], $_POST['title'], $_POST['category']);
 if($type=='new'){
     $qry = $db->prepare('INSERT INTO sites_cursos (title,description,photo,category) VALUES (?,?,?,?)');
     $qry->bindValue(1, $_POST['title'], SQLITE3_TEXT);
