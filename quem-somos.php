@@ -25,7 +25,7 @@ $who = $list->fetchArray();
             <div class="col-xl-5 col-sm-12">
                 <div class="image-box">
                     <figure>
-                        <img src="<?php echo $who['photo'] ?>" alt="">
+                        <img src="./_resources/images/<?php echo $who['photo'] ?>" alt="">
                     </figure>
                 </div>
             </div>
