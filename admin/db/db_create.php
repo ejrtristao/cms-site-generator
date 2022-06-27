@@ -66,7 +66,13 @@ $db->exec("CREATE TABLE IF NOT EXISTS sites_slide(
     site_id INTEGER,
     slide TEXT,
     title TEXT,
-    description TEXT
+    subtitle TEXT,
+    image TEXT,
+    link1 TEXT,
+    description1 TEXT,
+    link2 TEXT,
+    description2 TEXT,
+    icon TEXT
 )");
 
 $db->exec("INSERT INTO category(name) VALUES('site')");
