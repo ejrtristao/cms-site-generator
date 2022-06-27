@@ -12,15 +12,10 @@ $row = $db->querySingle("SELECT * FROM sites WHERE id = 1", true);
         </div>
         <div class="mb-3">
             <label for="title" class="form-label">Logo</label>
-            <div id="display_image"></div>
-            <img src="../_resources/images/logo/logo.png" />
-            <input type="file" accept="image/*" class="form-control" value="<?php echo isset($row['logo']) ? $row['logo']: ''; ?>" name="logo" id="logo">
+            <img src="../_resources/images/logo/<?=$row['logo']?>" class="img-responsive" id="image_logo"  />
+            <img id="image_preview" src="#" class="img-responsive"  style="display: none" />
+            <input type="file" accept="image/*" class="form-control" value="<?php echo isset($row['logo']) ? $row['logo']: ''; ?>" name="logo" id="logo" >
         </div>
-        <!-- <div class="mb-3">
-            <label for="url" class="form-label">URL</label>
-            <input type="text" class="form-control" value="<?php //echo isset($row['url']) ? $row['url']:'' ; 
-                                                            ?>" name="name" id="name">
-        </div> -->
         <div class="mb-3">
             <label for="title" class="form-label">Facebook</label>
             <input type="text" class="form-control" value="<?php echo isset($row['facebook']) ? $row['facebook'] : ''; ?>" name="facebook" id="facebook">
@@ -67,41 +62,15 @@ $row = $db->querySingle("SELECT * FROM sites WHERE id = 1", true);
     </form>
 </div>
 
-<!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
+<script>
+    logo.onchange = evt => {
+  const [file] = logo.files
+  if (file) {
+    image_preview.src = URL.createObjectURL(file)
+    image_preview.style.display = 'block'
+    image_logo.style.display = 'none'
 
-        document.getElementById('flArquivo').addEventListener('change', handleFileSelect, false);
-
-        function handleFileSelect(evt) {
-            if (document.getElementById("slTipoArquivo").value == 2) { //Tira esta linha
-                document.getElementById('list').innerHTML = "";
-                var files = evt.target.files; // FileList object
-                for (var i = 0, f; f = files[i]; i++) {
-
-                    if (!f.type.match('image.*')) {
-                        continue;
-                    }
-
-                    var reader = new FileReader();
-
-                    // Closure to capture the file information.
-                    reader.onload = (function(theFile) {
-                        return function(e) {
-                            // Render thumbnail.
-                            var span = document.createElement('span');
-                            span.innerHTML = ['<img style="max-width:550px; width: 100%;" data-caption="Imagem de pré visualização" class="thumb responsive-img materialboxed" src="', e.target.result,
-                                '" title="', escape(theFile.name), '"/>'
-                            ].join('');
-                            document.getElementById('list').insertBefore(span, null);
-                        };
-                    })(f);
-
-                    // Read in the image file as a data URL.
-                    reader.readAsDataURL(f);
-                }
-            } //Tira esta linha
-        }
-
-    }, false);
-</script> -->
+  }
+}
+</script>
 <?php include './layouts/footer.php'; ?>

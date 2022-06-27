@@ -3,19 +3,17 @@ $db = new SQLite3('sites.db');
 
 $logo = "";
 if($_FILES['logo']['name'] != '') {
-    $target_path = '/logo.' . basename($_FILES["logo"]["type"]);
-    // @mkdir(DIR_ARQUIVOS.$chave, 0777, true)
+    $target_path = 'logo.' . basename($_FILES["logo"]["type"]);
     $base_dir = realpath(dirname(__FILE__));
     $image_dir = substr($base_dir, 0, -9) . "\_resources\images\logo\\";
     $logo = $image_dir . $target_path;
     $result = @move_uploaded_file($_FILES['logo']['tmp_name'], $logo);
 }
 
-// $db->exec("ALTER TABLE sites ADD COLUMN link_whatsapp TEXT;");
 $db->exec(
     "UPDATE sites SET 
     name='" . $_POST['name'] . "',
-    logo='" . $logo . "',
+    logo= '" . $target_path . "',
     facebook='" . $_POST['facebook'] . "',
     instagram='" . $_POST['instagram'] . "',
     email='" . $_POST['email'] . "',
@@ -29,9 +27,6 @@ $db->exec(
      WHERE id=" . $_POST['id']
 );
 
-
-
 header("Location: ../site_detail.php");
 die();
-
 ?>
